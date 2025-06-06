@@ -1,0 +1,102 @@
+description: "ba05bb09"
+speaker_verification:
+  epochs: 5 #12 #8 #64 #1 #2 #32
+  log_root_path: "/mnt/nvme_nfs/INTERSPEECH2025/log/speaker_verification"  # Log root path
+  #n_proc_per_node: 3
+  speaker_verification_trainer:
+    ckpt_path: "/mnt/nvme_nfs/INTERSPEECH2025/stored_models/base_noise_pt_noise_ft_433h.pt" #"/mnt/nvme_nfs/INTERSPEECH2025/stored_models/base_noise_pt_noise_ft_30h.pt"  # Checkpoint path
+    #ckpt_dir: "/mnt/nvme_nfs/INTERSPEECH2025/log/speaker_verification_models"  # Checkpoint directory
+    lr: 0.0001                       # Learning rate Praveena et al.: 0.001
+    lr_step: 10                     # Step size for learning rate decay
+    lr_gamma: 0.1                   # Multiplicative factor of learning rate decay
+    lr_decay: 0.65                  # Learning rate decay per epoch Praveena et al.: 0.65
+    n_class: 1000                   # Number of classes
+    margin_a: 0.25 #0.2                   # Margin for audio embeddings
+    scale_a: 30.0                   # Scale for audio embeddings
+    margin_v: 0.1 #0.4                   # Margin for video embeddings Praveena et al.: 0.4
+    scale_v: 30.0                   # Scale for video embeddings
+    test_step: 1000                 # Test step interval
+    lr_decay_start: 25 #20              # Epoch to start learning rate decay
+    lr_decay_every: 1               # Decay learning rate every n epochs
+    lr_decay_rate: 0.65             # Learning rate decay rate
+    vox_path: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/voxceleb"  # Path to VoxCeleb2 dataset
+    metadata_file: "vox2_vox2_meta.csv"   # Metadata file name
+    train_speakers_file: "train_videos_frac_0.5.txt" #"train_videos_cleaned.txt"
+    bad_samples_dev: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/voxceleb/bad_samples_dev.txt"  # Bad samples file for training
+    batch_size: 8 #16 #32                  # Batch size
+    val_trials_file: "val_speaker_trials_36000_max7_cleaned_frac_0.1.txt"  # Validation trials file
+    test_trials_file: "test_speaker_trials_36000_max7.txt"  # Test trials file
+    stack_order_audio: 4            # Stack order for audio embeddings
+    proj_out_audio: 192 #512 #192             # Output dimension for audio embeddings
+    proj_out_video: 512 #512             # Output dimension for video embeddings
+    long_videos_file: "long_videos_dev_7.txt"  # Long videos file
+    max_sequence_len: 177           # Maximum sequence length, measured from the 7 sec videos
+    log_dir: "/mnt/nvme_nfs/INTERSPEECH2025/log/speaker_verification"  # Log directory
+    mode: "run"                   # Mode (debug, run, debug_train)
+    dataloader_workers: 20 #16 #8 #36 #8 #16          # Number of workers for dataloader
+    pin_memory: False #True                # Pin memory for dataloader
+    h_conv: 0 #1024 #0 #1024 #768                     # Hidden dimension for convolutional layers (ECAPA-TDNN) 0 for no ECAPA
+
+av_hubert:
+  epochs: 30 #20 #8 #10 #15 #120 #64 #1 #2 #32
+  log_root_path: "/mnt/nvme_nfs/INTERSPEECH2025/log/av_hubert"  # Log root path
+  #n_proc_per_node: 3
+  find_unused_parameters: True
+  checkpoint_dir: "/mnt/nvme_nfs/INTERSPEECH2025/log/av_hubert_models"  # Checkpoint directory
+  av_hubert_trainer:
+    train_files: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/train_files.txt"  # Train files
+    val_files: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/val_files.txt"  # Validation files
+    test_files: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/test_files.txt"  # Test files
+    train_data: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/processed/trainval"  # Train data
+    val_data: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/processed/trainval"  # Validation data
+    test_data: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/processed/test"  # Test data
+    train_labels: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/trainval"  # Train labels
+    val_labels: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/trainval"  # Validation labels
+    test_labels: "/mnt/nvme_nfs/INTERSPEECH2025/local_datasets/lrs3/labels/test"  # Test labels
+    batch_size: 2 #4 #16 #16 #32                  # Batch size, default 16 works
+    features_audio: 1024 #512               # Number of audio features, 512 cannot be changed
+    features_video: 1024 #512               # Number of video features, 512 cannot be changed
+    n_heads_audio: 4                  # Number of heads for audio attention
+    n_heads_video: 4                  # Number of heads for video attention
+    alpha_1: 0.0 #1.0 #0.01                     # Coefficient for audio entropy loss
+    alpha_2: 0.0 #1.0 #0.01                     # Coefficient for video entropy loss
+    beta_1: 0.5                     # Coefficient for audio information bottleneck loss
+    beta_2: 0.9 #0.5                      # Coefficient for video information bottleneck loss
+    gamma_1: 0.0 #0 #0.1                     # Coefficient for audio to video reconstruction loss
+    gamma_2: 0.0 #0 #0.1                     # Coefficient for video to audio reconstruction loss
+    lr_phase1: 0.001                # Learning rate for Phase 1 (CMR optimization)
+    lr_phase2: 0.001                # Learning rate for Phase 2 (Global optimization)
+    num_workers: 24 #8 #6 #8
+    loss_fn: "ce" #"ctc_ce"               # Loss function (ctc_ce, ctc, ce)
+    train_privacy_module_only: False #True  # 
+    lora_init_r: 12 #8                     # AdaLoRa initial rank
+    lora_target_r: 8 #4              # AdaLoRa target rank
+    residual_type: "film" #"mult"           # Residual type ("add", "mult", "addmult", None, "film", "awgn", "identity")
+    max_generation_length: 30     # Maximum length for generation in inference.
+    ib_activation: "none" #"tanh"
+    exponential_activation: True              # Use exponential loss scaling -> exp(-loss) for the conditional entropies
+    noise: 0.5
+    max_different_samples: 4
+    power_coefficient: 1.0
+    sensitivity: 0.1
+    cm_alt: True
+  
+  adaptor_scheduler:
+    strategy: "linear"              # Adaptor scheduler strategy (linear, exponential)
+    warmup_steps: 0 #250 #200 #0 #200 #200 #400              # Warmup steps for adaptor scheduler 400 for BS = 16, 500 for BS = 32
+    max_steps: 10 #400 #600 #500 #500 #1000                # Maximum steps for adaptor scheduler 1000 for BS = 16, 500 for BS = 32
+  
+  lr_scheduler:
+    init_lr: 0.001                 # Initial learning rate
+    final_lr: 0.0001               # Final learning rate
+    zero_epoch: 1
+    init_epoch: 1                # Initial epoch for learning rate scheduler
+    final_epoch: 7                # Final epoch for learning rate scheduler
+  
+  model_selection_weights:
+    wer: 0.6
+    coe_audio: 0.1
+    coe_video: 0.1
+    cmr_recon_audio: 0.1
+    cmr_recon_video: 0.1
+

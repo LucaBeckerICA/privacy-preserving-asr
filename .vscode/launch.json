@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "python": "/mnt/nvme_nfs/miniconda3/envs/AV/bin/python",
+            "console": "integratedTerminal",
+            //"cwd": "${fileDirname}",
+            "cwd": "/mnt/nvme_nfs/INTERSPEECH2025/code",
+            "args":[
+                "--config",
+                "config_last/ba03bb03.yaml"
+            ],
+            "justMyCode": true
+        }
+    ]
+}
