@@ -37,11 +37,14 @@ To set up the environment and run the project locally, follow these steps:
 4. **Download and prepare datasets**
    Follow the instructions in [`data/README.md`](data/README.md) to download and preprocess the audio-visual datasets (e.g., VoxCeleb2, LRS3).
 
-5. **Run the AV-HuBERT training script**
+5. **Download the pre-trained AV-ASR model**
+   Download specifically this [AV-HuBERT implementation]{https://huggingface.co/nguyenvulebinh/AV-HuBERT-MuAViC-en}
+
+6. **Run the AV-HuBERT training script**
    ```bash
    python train_avhubert.py --config config/config.yaml
    ```
-6. **Run the speaker verification script**
+7. **Run the speaker verification script**
    ```bash
    python train_speaker_verification.py --config config/config.yaml
    ```
