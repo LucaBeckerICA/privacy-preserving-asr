@@ -53,6 +53,7 @@ To set up the environment and run the project locally, follow these steps:
 
 This project is licensed under the MIT license. 
 If you use this work in your research, please cite or reference the following:
+```bash
 @article{privacy_avsr2025,
   title     = {Contrastive Representation Learning for Privacy-Preserving Fine-Tuning of Audio-Visual Speech Recognition},
   author    = {Becker, Luca and Martin, Rainer},
@@ -62,3 +63,4 @@ If you use this work in your research, please cite or reference the following:
   month     = {October},
   status    = {accepted}
 }
+```
