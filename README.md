@@ -53,4 +53,12 @@ To set up the environment and run the project locally, follow these steps:
 
 This project is licensed under the MIT license. 
 If you use this work in your research, please cite or reference the following:
-*BibTex-entry will follow after acceptance*
+@article{privacy_avsr2025,
+  title     = {Contrastive Representation Learning for Privacy-Preserving Fine-Tuning of Audio-Visual Speech Recognition},
+  author    = {Becker, Luca and Martin, Rainer},
+  journal   = {Conference Workshop on Applications of Signal Processing to Audio and Acoustics (WASPAA)},
+  note      = {Accepted at the Conference Workshop on Applications of Signal Processing to Audio and Acoustics, Tahoe City, USA, October 2025},
+  year      = {2025},
+  month     = {October},
+  status    = {accepted}
+}
