@@ -1,7 +1,10 @@
 # Privacy-Preserving Fine-Tuning of Audio-Visual Speech Recognition
 
 ## About
-
+<p align="center">
+  <img src="images/trust_threat_model.png" alt="Trust and Threat Model" width="45%" />
+  <img src="images/system_av.png" alt="Global System" width="45%" />
+</p>
 This project explores a novel approach to fine-tuning audio-visual speech recognition (AV-ASR) models under strong privacy constraints. The core idea is to transform intermediate representations in a way that preserves recognition performance while preventing information leakage that could be exploited by adversaries.
 
 We introduce feature-wise additive and multiplicative masks trained with a contrastive learning objective. These masks aim to:
